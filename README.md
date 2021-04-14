@@ -1,4 +1,4 @@
 # DenaliReceiving
-Receiving form for Cherwell used by Denali.
+WEB based Depot services for Cherwell used by Denali.
 
 Requires JQWidgets installation.

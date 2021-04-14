@@ -1,4 +1,4 @@
-# DenaliReceiving
+# Denali AI Depot Services
 WEB based Depot services for Cherwell used by Denali.
 
 Requires JQWidgets installation. JQWidgets should be in a jqwidgest folder in the root of the IIS Web Service.

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id='Description'>Denali AI Receiving function for bulk items.</title>
+	<meta name="description" content="Allows assets to have their status changed easily. Facilitates batch status changes." /> 
+    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdata.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script>  
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="/jqwidgets/globalization/globalize.js"></script>
+    <script type="text/javascript" src="/depot/scripts/cherwell/constant_definitions.js"></script>
+    <script type="text/javascript" src="/depot/scripts/cherwell/login.js"></script>    
+    <script type="text/javascript" src="scripts/asset_status.js"></script>
+    <link rel="stylesheet" href="/depot/style.css" type="text/css" />
+</head>
+<body>
+	<div id="formDiv">
+		<div class="field" id="statusDiv">
+            <div style="float:left">
+                <img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
+            </div>
+            <div style="float:left">
+                <label class="field" for="status">New Status</label>
+                <select class="field" tabindex="-1" id="status" onchange="changeStatus()">
+                    <option class="field" value="" selected>Select a Status to set</option>
+                </select>   
+                <label class="field" for="opStatus">Operational Status</label>
+                <select class="field" tabindex="-1" id="opStatus" onchange="changeOpStatus()">
+                    <option class="field" value="" selected>Select an Operational Status</option>
+                </select>
+                <label class="field" for="bin">Bin</label>
+                <input class="field" value="" id="bin" tabindex="-1" type="text" onchange="changeBin()" />
+            </div>
+            <div class="fieldDiv" id='serialNumber' style="visibility:hidden" >
+                <div class="field" id="serialbarcodeDiv">
+                    <label class="field" for="serialbarcode">Serial Number</label>
+                    <input class="field" tabindex="2" type="text" id="serialbarcode" onChange="addSerial()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:left">
+        <ul id="result" style="margin-left: 10px;"></ul>
+    </div>
+</body>
+</html>

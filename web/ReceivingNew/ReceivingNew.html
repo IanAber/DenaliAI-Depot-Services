@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id='Description'>Denali AI Receiving function for bulk items.</title>
+	<meta name="description" content="Allows packages to be opened and their contents recorded against the tracking number of which it was received.
+    Serialised assets are placed in numbered bins for testing and non-serialised assets are inspected and collected in bins of like devices." /> 
+    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdata.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.edit.js"></script>  
+    <script type="text/javascript" src="/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxnumberinput.js"></script>
+    <script type="text/javascript" src="/jqwidgets/jqxdatetimeinput.js"></script>
+	<script type="text/javascript" src="/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="/jqwidgets/globalization/globalize.js"></script>
+    <script type="text/javascript" src="/depot/scripts/cherwell/constant_definitions.js"></script>
+    <script type="text/javascript" src="/depot/scripts/cherwell/login.js"></script>    
+    <script type="text/javascript" src="scripts/ReceivingNew.js"></script>
+    <link rel="stylesheet" href="/depot/style.css" type="text/css" />
+</head>
+<body>
+	<div id="formDiv">
+		<div class="fieldSet" id="deviceSelectionDiv">
+            <div style="float:left">
+                <img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
+            </div>
+			<div style="float:left">
+				<div class="field" id="depotDiv" style="float:left">
+					<label class="field" for="depot">Depot</label>
+					<select class="field" tabindex="-1" id="depot" style="width: 8em">
+					</select>
+				</div>
+				<div class="field" id="companyDiv" style="float:left">
+					<label class="field" for="company">Customer</label>
+					<select class="field" tabindex="-1" id="company" onchange="changeCompany()">
+						<option class="field" value="" selected>Select a Customer</option>
+					</select>
+				</div>
+				<div class="field" id="assetStatusDiv" style="visibility:hidden">
+					<label class="field" for="assetStatus">Asset Status</label>
+					<select class="field" tabindex="1" type="text" id="assetStatus" style="width:12em" onchange="changeStatus()" >
+					</select>
+				</div>
+				<div class="field" id="opStatusDiv" style="visibility:hidden">
+					<label class="field" for="opStatus">Operational Status</label>
+					<select class="field" tabindex="2" type="text" id="opStatus" style="width:12em" onchange="changeOpStatus()" >
+					</select>
+				</div>
+				<div class="field" id="invoiceDiv" style="visibility:hidden;float:left">
+					<label class="field" for="invoice">Invoice</label>
+					<input class="field" tabindex="3" id="invoice" onchange="changeInvoice()" />
+				</div>
+				<div class="field" id="productDiv" style="visibility:hidden">
+					<label class="field" for="product">Product</label>
+					<select class="field" tabindex="4" type="text" id="product" onchange="changeProduct()">
+						<option class="field" value="" selected>Select a Product</option>
+					</select>
+				</div>
+				<div class="field" id="firmwareVersionDiv" style="visibility:hidden">
+					<label class="field" for="firmwareVersion">Firmware Version</label>
+					<input class="field" tabindex="4" id="firmwareVersion" />
+				</div>
+			</div>
+			<div class="field" id="serialDiv" style="visibility:hidden">
+				<label class="field" id="serialLabel" for="serial">Serial #</label>
+				<input class="fieldreadonly" id="serial" readonly /><img src="../images/TrashCan.jpg" class="fieldButton" onclick="$('#serial').val(''); $('#scan').focus();" />
+			</div>
+			<div class="field" id="imei1Div" style="visibility:hidden">
+				<label class="field" for="imei1">IMEI-1</label>
+				<input class="fieldreadonly" id="imei1" readonly /><img src="../images/TrashCan.jpg" class="fieldButton" onclick="$('#imei1').val(''); $('#scan').focus();" />
+			</div>
+			<div class="field" id="imei2Div" style="visibility:hidden">
+				<label class="field" for="imei2">IMEI-2</label>
+				<input class="fieldreadonly" id="imei2" readonly /><img src="../images/TrashCan.jpg" class="fieldButton" onclick="$('#imei2').val(''); $('#scan').focus();" />
+			</div>
+			<div class="field" id="imei3Div" style="visibility:hidden">
+				<label class="field" for="imei3">IMEI-3</label>
+				<input class="fieldreadonly" id="imei3" readonly /><img src="../images/TrashCan.jpg" class="fieldButton" onclick="$('#imei3').val(''); $('#scan').focus();" />
+			</div>
+			<div class="field" id="eSIMDiv" style="visibility:hidden">
+				<label class="field" for="eSIM">E-SIM</label>
+				<input class="fieldreadonly" id="eSIM" readonly /><img src="../images/TrashCan.jpg" class="fieldButton" onclick="$('#eSIM').val(''); $('#scan').focus();" />
+			</div>
+		</div>
+		<div class="fieldSet" id="deviceScanDiv" style="visibility:hidden">
+			<div class="field" id="scanDiv" style="float:left">
+				<label class="field" id="scanLabel" for="scan">Scan Here #</label>
+				<input class="field" id="scan" />
+				<span class="confirmation" id="confirmation" style="visibility:hidden" >Device Saved...</span>
+			</div>
+		</div>
+		<div id="binsGridContainer" >
+				<div id="bins" ></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

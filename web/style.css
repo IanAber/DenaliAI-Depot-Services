@@ -49,6 +49,14 @@ div.field {
     height:4em;
 }
 
+div.links {
+    visibility: hidden;
+    clear:both;
+    margin-left:20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 div.button {
     margin: 0px;
     width:100%;

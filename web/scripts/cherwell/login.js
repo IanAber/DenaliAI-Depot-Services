@@ -19,9 +19,11 @@ function login(e) {
         auth_mode: "auto"
     }
     $("#waitMsg").css('visibility','visible');
+    $("#waitingImg").css('display','block');
     try {
         $.post("/cherwellapi/token?Auth_mode=auto", body, loginSuccess)
             .fail(function (xhr, status, error) {
+                $("waitingImg").css('display','none');
                 if (username.toLowerCase().indexOf('denaliai\\') == -1) {
                     $('#username').val('DenaliAI\\' + username);
                     $("#doLogin").click();
@@ -43,8 +45,65 @@ function loginSuccess(data, status, xhr) {
     getToken(data, status, xhr);
     var now = new Date();
     if (token.expires > now) {
-        $("#loginDiv").css('display','none');
-        $("#formDiv").css('visibility', 'visible');
+        getLoginDepots();
+    }
+}
+
+function getLoginDepots() {
+    body = { busObId:DepotObj, fields:[DepotName,DepotRecId]};
+    try {
+        if (refreshToken()) {
+            $.ajaxSetup({headers:{'Authorization':"Bearer " + token.access,
+                                'Content-Type':"application/json"}});
+            $.post("/cherwellapi/api/V1/getsearchresults", JSON.stringify(body), populateLoginDepots)
+                .fail(function (xhr, status, error) {
+                    alert("Failed : " + status + " | Error : " + error + " | " + xhr.responseText)
+                });
+        }
+    } catch (e) {
+        alert(e);
+    }
+}
+
+function getDepotName() {
+    depot = $("#depot option:selected").val();
+    if (typeof(depot) == 'undefined') {
+        return "";
+    } else {
+        return depot;
+    }
+}
+
+function getDepotId() {
+    depot = $("#depot option:selected").val();
+    if (typeof(depot) == 'undefined') {
+        return "";
+    } else {
+        return depot;
+    }
+}
+
+function populateLoginDepots(data, status, xhr) {
+    var records = data.businessObjects;
+    records.forEach(function(depot, index) {
+        $('#depot').append($('<option>', {
+                            value: depot.fields[1].value,
+                            text: depot.fields[0].value}))
+    });
+    depotId = getCookie("depot");
+    if (depotId != "") {
+        $('#depot').val(depotId).change();
+    }
+    $("waitingImg").css('display','none');
+    $("#loginDiv").css('display','none');
+    $("#formDiv").css('visibility', 'visible');
+}
+
+function changeLoginDepot() {
+    var depot = getDepotId();
+    if (depot.length == 42) {
+        setCookie("depot", depot, 14);
+        $("#linksDiv").css('visibility', 'visible');
     }
 }
 

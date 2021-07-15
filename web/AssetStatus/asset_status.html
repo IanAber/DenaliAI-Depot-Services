@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title id='Description'>Denali AI Receiving function for bulk items.</title>
-	<meta name="description" content="Allows assets to have their status changed easily. Facilitates batch status changes." /> 
-    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <title id='Description'>Denali AI Set the status of serialised items in bulk.</title>
+	<meta name="description" content="Allows assets to have their status changed easily. Facilitates batch status changes." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/jqwidgets/styles/jqx.base.css" type="text/css" />
     <script type="text/javascript" src="/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="/jqwidgets/jqxdata.js"></script> 
     <script type="text/javascript" src="/jqwidgets/jqxbuttons.js"></script>
@@ -29,10 +29,15 @@
 </head>
 <body>
 	<div id="formDiv">
-		<div class="field" id="statusDiv">
+        <div class="fieldSet">
+            <div style="float:left;margin-top:10px;margin-left:20px">
+                <h1>Set the status of serialised items in bulk.</h1>
+            </div>
             <div style="float:left">
                 <img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
             </div>
+        </div>
+        <div class="field" id="statusDiv">
             <div style="float:left">
                 <label class="field" for="status">New Status</label>
                 <select class="field" tabindex="-1" id="status" onchange="changeStatus()">

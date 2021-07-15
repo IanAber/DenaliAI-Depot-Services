@@ -32,17 +32,23 @@
 </head>
 <body>
 	<div id="formDiv">
-		<div class="fieldSet" id="deviceSelectionDiv">
-            <div style="float:left">
-                <img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
-            </div>
+		<div class="fieldSet">
+			<div style="float:left;margin-top:10px;margin-left:20px">
+				<h1>Bulk Receive New Items</h1>
+			</div>
+			<div style="float:left">
+				<img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
+			</div>
+		</div>
+		<div class="fieldSet" id="deviceSelectionDiv" style="clear:both">
 			<div style="float:left">
 				<div class="field" id="depotDiv" style="float:left">
 					<label class="field" for="depot">Depot</label>
-					<select class="field" tabindex="-1" id="depot" style="width: 8em">
+					<select class="field" tabindex="-1" id="depot" style="width: 8em" onchange="changeDepot()">
+						<option value="" selected>Select your Depot</option>
 					</select>
 				</div>
-				<div class="field" id="companyDiv" style="float:left">
+				<div class="field" id="companyDiv" style="float:left; visibility: hidden" >
 					<label class="field" for="company">Customer</label>
 					<select class="field" tabindex="-1" id="company" onchange="changeCompany()">
 						<option class="field" value="" selected>Select a Customer</option>

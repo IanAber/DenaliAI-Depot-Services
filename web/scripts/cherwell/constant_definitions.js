@@ -51,6 +51,7 @@ const ReceivingObj      = "946d2d577152d0470a0cb04b07b3027024b375e869";
 const Rcv_CompanyName   = "946d2d6b0cd84516628db7461d8d565294cefedcb4";
 const Rcv_RecID         = "946d2d665b689b517180e64a0cbdf42a1891438a36";
 const Rcv_Template      = "946d2e9870d039dc9005f84d03bb341d7352416029";
+const Rcv_CompanyId     = "946d2e789198fd307511ef4719b5d3bf01b1c81983";
 
 const ReceiveNSObj      = "946d7a3d753f9c790f350d4c119d56c75196aa88f8";
 const RcvNS_RecID       = "946d7a3d75a6c4c9b64802403db79e8d1ede4107b5";
@@ -69,6 +70,8 @@ const Bin_Shelf         = "946e19da24b2bf5531b6c0481d9acfb7cffc36dfeb";
 const Bin_RecID         = "946e2a5c1f79a38e493dcd4a17b8929e333ed95071";
 const Bin_ProdID        = "9474b18a37ed11a04d385345ebaa11d66dcfa77cac";
 const Bin_Qty           = "9474b18c1fff23b9f78da043b3b498cede5f930076";
+
+const Rel_Bin_Prod      = "9474b199bfe63cb4c2ca10410d9979f59d320a1b56";
 
 // Config Device Status
 const CIStatusObj       = "938a03ae6532a7735c406a4b34a5c6295e559fe3a1";
@@ -118,6 +121,7 @@ const CY_Status         = "9416b5003f703e92a70b44496082f4057ce2a2a39f";
 // Depot
 const DepotObj          = "9404935147f5686c88342c473f848ce3d89eb823f5";
 const DepotName         = "9404935442c2ac4f34f7e347c7bf95fe1b02231b6e";
+const DepotRecId        = "94049351479eed337c36ac436c961d3680473e806e";
 
 // Asset Status
 const StatusObj         = "938a03ae6532a7735c406a4b34a5c6295e559fe3a1";

@@ -84,7 +84,7 @@ $(document).ready(function () {
         columns: [
             { text: 'Description', datafield: 'description', editable: false, width: "auto" },
             { text: 'Good', editable: false, columntype: 'text', datafield: 'addGood', width: "5%", cellsrenderer: function() {
-                    return '<div class="button"><img src="/images/check.png" /></div>';
+                    return '<div class="button"><img src="/depot/images/check.png" /></div>';
                 }
             },
             { text: 'Good Count', datafield: 'good_count', columntype: 'numberinput', width: "10%", cellsalign: 'center',
@@ -93,7 +93,7 @@ $(document).ready(function () {
                 }
             },
             { text: 'Bad', editable: false, columntype: 'text', datafield: 'addBad', width: "5%", cellsrenderer: function() {
-                    return '<div class="button"><img src="/images/red-cross.png" /></div>';
+                    return '<div class="button"><img src="/depot/images/red-cross.png" /></div>';
                 }
             },
             { text: 'Bad Count', datafield: 'bad_count', columntype: 'numberinput', width: "10%", cellsalign: 'center',
@@ -142,6 +142,7 @@ $(document).ready(function () {
     $("#binbarcode").keydown( handleSerialTab);
     loadToken();
     getCustomers();
+    getDepots();
 });
 
 function resizeNSPartsGrid() {
@@ -204,12 +205,62 @@ function gotoSerial() {
     $("#serialbarcode").focus();
 }
 
+function getDepotName() {
+    return $("#depot option:selected").text();
+}
+
+function getDepotId() {
+    return $("#depot option:selected").val();
+}
+
+function changeDepot() {
+    var depot = getDepotId();
+    if (depot.length == 42) {
+        $("#companyDiv").css('visibility', 'visible');
+    }
+}
+
+function getDepots() {
+    body = { busObId:DepotObj, fields:[DepotName,DepotRecId]};
+    try {
+        if (refreshToken()) {
+            $.ajaxSetup({headers:{'Authorization':"Bearer " + token.access,
+                                'Content-Type':"application/json"}});
+            $.post("/cherwellapi/api/V1/getsearchresults", JSON.stringify(body), populateDepots)
+                .fail(function (xhr, status, error) {
+                    alert("Failed : " + status + " | Error : " + error + " | " + xhr.responseText)
+                });
+        }
+    } catch (e) {
+        alert(e);
+    }
+}
+
+function populateDepots(data, status, xhr) {
+    var records = data.businessObjects;
+    records.forEach(function(depot, index) {
+        $('#depot').append($('<option>', {
+                            value: depot.fields[1].value,
+                            text: depot.fields[0].value}))
+    });
+    depotId = getCookie("depot");
+    if (depotId.length == 42) {
+        $("#depot").val(depotId).change();
+    }
+}
+
 function getCompanyName() {
     return $("#company option:selected").text();
 }
 
 function getCompanyId() {
-    return $("#company option:selected").val();
+    values = $("#company option:selected").val().split("|");
+    return values[0];
+}
+
+function getCompanyRecId() {
+    values = $("#company option:selected").val().split("|");
+    return values[1];
 }
 
 function changeCompany() {
@@ -223,7 +274,7 @@ function changeCompany() {
 
 function getCustomers() {
     body = { busObId:ReceivingObj,
-                fields:[Rcv_CompanyName,Rcv_RecID],
+                fields:[Rcv_CompanyName,Rcv_RecID,Rcv_CompanyId],
                 filters:[{fieldId:Rcv_Template,
                         operator:"eq",
                         value:"True"}]
@@ -245,11 +296,11 @@ function getCustomers() {
 function populateCustomers(data, status, xhr) {
     var records = data.businessObjects;
     records.forEach(function(customer, index) {
-        var option = document.createElement("option");
-        option.text = customer.fields[0].value;
-        option.value = customer.fields[1].value;
+//        var option = document.createElement("option");
+//        option.text = customer.fields[0].value;
+//        option.value = customer.fields[1].value;
         $('#company').append($('<option>', {
-                            value: customer.fields[1].value,
+                            value: customer.fields[1].value + '|' + customer.fields[2].value,
                             text: customer.fields[0].value}))
     });
 }
@@ -346,6 +397,9 @@ function submitForm() {
     var data = {receiving:{
                     tracking:$("#trackingbarcode").val(),
                     company:getCompanyName(),
+                    companyRecId:getCompanyRecId(),
+                    depot:getDepotName(),
+                    depotId:getDepotId(),
                     nsproducts:[],
                     items:[]
     }};

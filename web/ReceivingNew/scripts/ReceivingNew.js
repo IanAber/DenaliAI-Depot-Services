@@ -622,7 +622,7 @@ function populateCompanies(data, status, xhr) {
  */
 function loadDepots() {
     body = { busObId:DepotObj,
-                fields:[DepotName],
+                fields:[DepotName, DepotRecId],
                 sorting:[{
                     fieldId:DepotName,
                     sortDirection: "1"}]
@@ -651,10 +651,21 @@ function populateDepots(data, status, xhr) {
     var records = data.businessObjects;
     records.forEach(function(depot, index) {
         $('#depot').append($('<option>', {
-                            value: depot.fields[0].value,
+                            value: depot.fields[1].value,
                             text: depot.fields[0].value}))
     });
-    $('#depot').val("Plano");
+    depotId = getCookie("depot");
+    if (depotId.length == 42) {
+        $('#depot').val(depotId).change();
+    }
+}
+
+function changeDepot() {
+    var depot = getDepotId();
+    if (depot.length == 42) {
+        setCookie("depot", depot, 14);
+        $("#companyDiv").css('visibility', 'visible');
+    }
 }
 
 /**

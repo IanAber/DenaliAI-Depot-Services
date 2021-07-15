@@ -28,21 +28,28 @@
     <link rel="stylesheet" href="/depot/style.css" type="text/css" />
 </head>
 <body>
-	<div id="formDiv">
-		<div class="field" id="statusDiv">
-            <div class="fieldDiv" id='trackingNumber' >
-                <div class="field" id="trackingbarcodeDiv">
-                    <label class="field" for="trackingbarcode">Scan a Tracking Number</label>
-                    <input class="field" tabindex="2" type="text" id="trackingbarcode" onChange="addTracking()" />
+    <div>
+        <div class="fieldSet">
+            <div style="float:left;margin-top:10px;margin-left:20px">
+                <h1>Mark a Deployment as Packed</h1>
+            </div>
+            <div style="float:left">
+                <img src="https://www.denaliai.com/images/logo-new.svg" style="height:4em" />
+            </div>
+        </div>
+        <div id="formDiv" style="clear:both">
+            <div class="field" id="statusDiv">
+                <div class="fieldDiv" id='trackingNumber' >
+                    <div class="field" id="trackingbarcodeDiv">
+                        <label class="field" for="trackingbarcode">Scan a Tracking Number</label>
+                        <input class="field" tabindex="2" type="text" id="trackingbarcode" onChange="addTracking()" />
+                    </div>
                 </div>
             </div>
         </div>
-        <div style="float:right">
-            <img src="https://www.denaliai.com/images/logo-new.svg" style="height:6em" />
-        </div>
-    </div>
-    <div style="clear:left">
-        <ul id="result" style="margin-left: 10px;"></ul>
+        <div style="clear:left">
+            <ul id="result" style="margin-left: 10px;"></ul>
+        </div>    
     </div>
 </body>
 </html>
